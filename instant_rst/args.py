@@ -4,12 +4,14 @@ from instant_rst import settings
 from instant_rst.settings import DEFAULT_FILE, PORT, BROWSER, \
     FLASK_TEMPLATE_FOLDER, FLASK_STATIC_FOLDER
 
+
 def setup(_args):
     settings.FLASK_TEMPLATE_FOLDER = _args.template_dir
     settings.FLASK_STATIC_FOLDER = _args.static_dir
     settings.DEFAULT_FILE = _args.filename
     settings.ADDITIONAL_DIRS = _args.additional_dirs
     settings.PORT = _args.port
+
 
 def parse():
     parser = argparse.ArgumentParser(description='Preview rst instantly.')
@@ -41,7 +43,7 @@ def parse():
                         default=False,
                         help='debug mode or not')
 
-    _args = parser.parse_args() 
+    _args = parser.parse_args()
 
     setup(_args)
 
