@@ -20,6 +20,7 @@ settings.URL = f"http://{settings.HOST}:{settings.PORT}"
 
 
 def run():
+    print(settings.URL)
     settings._p1 = Thread(target=util.delay, args=(1, "browseAndPost", [_args.browser, settings.URL]))
     settings._p2 = Thread(target=sock.run, args=(app,), kwargs={'host': APP_HOST, 'port': settings.PORT})
 
