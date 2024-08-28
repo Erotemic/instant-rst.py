@@ -58,11 +58,11 @@ optional arguments:
 -t TEMPLATE_DIR, --template-dir TEMPLATE_DIR
                       Directory containing a template to
                       be used when rendering the output.
-                      Defaults to a bundled rhythm.css_
+                      Defaults to a bundled ``rhythm.css_``
 -s STATIC_DIR, --static-dir STATIC_DIR
                       The directory containing static
                       files used by the template.
-                      Defaults to a bundled rhythm.css_
+                      Defaults to a bundled ``rhythm.css_``
 -l, --localhost-only
                       Only use localhost, disable lan ip
                       default: False
@@ -180,8 +180,8 @@ install local package::
 
 start test with local package::
 
-    # localhost:5676
-    python -m instant_rst --debug -f README.rst
+    # localhost:5000
+    python -m instant_rst -f README.rst
 
 change to static/template file should change setup.py and manifest.in
 
