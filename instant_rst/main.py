@@ -8,8 +8,49 @@ from instant_rst.server import sock, app
 from instant_rst import util
 from instant_rst import settings
 
+import ubelt as ub
+import scriptconfig as scfg
 
-def parse():
+
+class InstantRST_CLI(scfg.DataConfig):
+    """
+    Preview rst instantly.
+    """
+    filename = scfg.Value(
+        settings.DEFAULT_FILE,
+        alias=['file'], short_alias=['f'],
+        help='The local filename for Converting',
+        position=1)
+    browser = scfg.Value(settings.BROWSER, short_alias=['b'], help=ub.paragraph(
+            '''
+            The browser command for viewing, empty will use default
+            '''))
+    port = scfg.Value(settings.PORT, short_alias=['p'], help='The port for server to use')
+    static_dir = scfg.Value(settings.FLASK_TEMPLATE_FOLDER, short_alias=['s'], help=ub.paragraph(
+            '''
+            Directory with static files for rendering
+            '''))
+    template_dir = scfg.Value(settings.FLASK_STATIC_FOLDER, short_alias=['t'], help=ub.paragraph(
+            '''
+            Directory with template files for rendering
+            '''))
+    localhost_only = scfg.Value(False, isflag=True, short_alias=['l'], help=ub.paragraph(
+            '''
+            Only use localhost, disable lan. default: False
+            '''))
+    additional_dirs = scfg.Value([], alias=['aditional_dir'], short_alias=['d'], help='Additional directories to serve')
+    debug = scfg.Value(False, isflag=True, help='debug mode or not')
+
+
+def make_argparse():
+    """
+    Ignore:
+        from instant_rst.main import *  # NOQA
+        import scriptconfig
+        parser = make_argparse()
+        print(scriptconfig.DataConfig.port_from_argparse(parser, name='InstantRST_CLI'))
+
+    """
     parser = argparse.ArgumentParser(description='Preview rst instantly.')
     parser.add_argument('-f', '--file', dest='filename',
                         default=settings.DEFAULT_FILE,
@@ -39,15 +80,17 @@ def parse():
                         default=False,
                         help='debug mode or not')
 
-    _args = parser.parse_args()
-
-    return _args
+    return parser
 
 
 def run():
+    try:
+        _args = InstantRST_CLI.cli(strict=True)
+    except Exception:
+        parser = make_argparse()
+        _args = parser.parse_args()
 
-    _args = parse()
-
+    # Settings are stored in a global module, might be best to change this.
     settings.FLASK_TEMPLATE_FOLDER = _args.template_dir
     settings.FLASK_STATIC_FOLDER = _args.static_dir
     settings.DEFAULT_FILE = _args.filename
