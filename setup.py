@@ -66,7 +66,13 @@ setup(
     # project is installed. For an analysis of "install_requires" vs pip's
     # requirements files see:
     # https://packaging.python.org/en/latest/technical.html#install-requires-vs-requirements-files
-    install_requires=['flask>=2.1.1', 'docutils', 'pygments', 'flask-socketio>=5.1.1', 'scriptconfig'],
+    install_requires=[
+        'flask>=2.0.1',
+        'docutils',
+        'pygments',
+        'flask-socketio>=5.1.1',
+        'scriptconfig'
+    ],
 
     # If there are data files included in your packages that need to be
     # installed, specify them here.  If using Python 2.6 or less, then these
@@ -91,7 +97,8 @@ setup(
 
     entry_points={
         'console_scripts': [
-            'instantRst= instant_rst.main:run',
+            'instantRst  = instant_rst.main:run',
+            'instant-rst = instant_rst.main:run',
         ],
     },
 
