@@ -85,7 +85,7 @@ def make_argparse():
 
 def run():
     try:
-        _args = InstantRST_CLI.cli(strict=True)
+        _args = InstantRST_CLI.cli(strict=True, verbose='auto')
     except Exception:
         parser = make_argparse()
         _args = parser.parse_args()
