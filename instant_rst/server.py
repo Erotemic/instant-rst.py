@@ -10,7 +10,8 @@ from instant_rst import settings, util
 app = Flask(__name__,
             static_folder=settings.FLASK_STATIC_FOLDER,
             template_folder=settings.FLASK_TEMPLATE_FOLDER)
-app.config['SECRET_KEY'] = settings.SECRET
+
+app.config['SECRET_KEY'] = settings.get_secret()
 sock = SocketIO(app)
 
 # ROUTE
